@@ -4,491 +4,300 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>三年級作文小幫手</title>
-  <meta name="description" content="國小三年級作文練習工具，包含作文題目、四段式架構、提示句與練習區。" />
   <style>
     * { box-sizing: border-box; }
-
     body {
       margin: 0;
-      font-family: "Noto Sans TC", "Microsoft JhengHei", Arial, sans-serif;
-      background: linear-gradient(180deg, #fff8e7 0%, #e8f6ff 100%);
+      font-family: -apple-system, BlinkMacSystemFont, "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+      background: linear-gradient(180deg, #fff6dd 0%, #eef8ff 100%);
       color: #333;
-      min-height: 100vh;
+      line-height: 1.8;
     }
-
     header {
-      background: linear-gradient(135deg, #ffb347, #ff8c42);
-      color: white;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(255,255,255,0.94);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #f0e2c5;
       text-align: center;
-      padding: 28px 16px 30px;
-      border-bottom-left-radius: 32px;
-      border-bottom-right-radius: 32px;
-      box-shadow: 0 6px 16px rgba(255, 140, 66, 0.28);
+      padding: 14px 16px 12px;
     }
-
-    header h1 {
-      margin: 0;
-      font-size: 30px;
-      letter-spacing: 1px;
-    }
-
-    header p {
-      margin: 10px 0 0;
-      font-size: 16px;
-      opacity: 0.95;
-    }
-
-    main {
-      width: 100%;
-      max-width: 960px;
-      margin: 20px auto 40px;
-      padding: 16px;
-    }
-
+    header h1 { margin: 0; font-size: 24px; color: #222; }
+    header p { margin: 2px 0 0; color: #666; font-size: 14px; }
+    main { max-width: 900px; margin: 0 auto; padding: 18px 14px 42px; }
     .card {
-      background: rgba(255, 255, 255, 0.96);
-      border-radius: 22px;
+      background: #fff;
+      border-radius: 24px;
       padding: 20px;
       margin-bottom: 18px;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-      border: 1px solid rgba(255,255,255,0.8);
+      box-shadow: 0 8px 24px rgba(120, 80, 30, 0.10);
     }
-
-    h2 {
-      color: #ff8c00;
-      margin: 0 0 12px;
-      font-size: 22px;
-    }
-
-    p {
-      line-height: 1.8;
-      margin: 8px 0 12px;
-    }
-
+    h2 { margin: 0 0 12px; color: #ff9100; font-size: 24px; line-height: 1.35; }
+    .small { color: #666; font-size: 15px; margin: -4px 0 12px; }
     button {
-      background: #4da3ff;
-      color: white;
-      border: none;
-      border-radius: 14px;
+      border: 0;
+      border-radius: 999px;
       padding: 12px 18px;
-      font-size: 16px;
+      font-size: 17px;
+      font-weight: 800;
+      color: #fff;
+      background: #2088d6;
       cursor: pointer;
-      margin: 6px 4px 6px 0;
-      box-shadow: 0 4px 10px rgba(77, 163, 255, 0.26);
+      box-shadow: 0 4px 12px rgba(32,136,214,.20);
     }
-
-    button:hover {
-      background: #2688ee;
+    button:active { transform: scale(.98); }
+    .chips { display: flex; flex-wrap: wrap; gap: 10px; }
+    .chip {
+      border: 0;
+      border-radius: 999px;
+      padding: 9px 15px;
+      background: #e7f6ff;
+      color: #237bae;
+      font-size: 17px;
+      font-weight: 800;
+      box-shadow: none;
     }
-
-    button.secondary {
-      background: #7ac88b;
-      box-shadow: 0 4px 10px rgba(122, 200, 139, 0.26);
-    }
-
-    button.secondary:hover {
-      background: #55b86c;
-    }
-
-    button.warn {
-      background: #ff9f68;
-      box-shadow: 0 4px 10px rgba(255, 159, 104, 0.26);
-    }
-
-    button.warn:hover {
-      background: #f07e3d;
-    }
-
-    .topic-box {
-      background: #fff3cd;
-      border: 2px dashed #ffb347;
+    .chip.active { background: #2088d6; color: #fff; }
+    .topic-box, .guide-box, .sample-box {
+      background: #eef8ff;
+      border-left: 8px solid #4da3ff;
       border-radius: 18px;
       padding: 18px;
-      font-size: 23px;
-      font-weight: 800;
-      text-align: center;
-      margin-top: 12px;
-      color: #7a4b00;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
-    }
-
-    .section-title {
-      font-weight: 800;
-      color: #2b7a78;
+      margin-top: 14px;
       font-size: 18px;
-      margin: 4px 0 8px;
     }
-
-    .hint {
-      background: #f0f9ff;
-      border-left: 6px solid #4da3ff;
-      padding: 13px 14px;
-      margin: 10px 0;
-      border-radius: 12px;
-      line-height: 1.85;
-    }
-
+    .sample-box { background: #fffaf0; border-left-color: #ffb347; white-space: pre-wrap; }
+    .topic-title { font-size: 22px; font-weight: 900; margin-bottom: 8px; }
+    .guide-box p { margin: 8px 0; }
+    .label { font-weight: 900; color: #111; }
     textarea {
       width: 100%;
-      min-height: 116px;
-      border: 2px solid #cde7ff;
-      border-radius: 15px;
+      min-height: 105px;
+      border: 2px solid #cfe9ff;
+      border-radius: 16px;
       padding: 12px;
       font-size: 17px;
-      line-height: 1.85;
+      line-height: 1.8;
       resize: vertical;
       outline: none;
-      background: #fff;
+      background: #fbfdff;
     }
-
-    textarea:focus {
-      border-color: #4da3ff;
-      box-shadow: 0 0 0 4px rgba(77, 163, 255, 0.12);
-    }
-
-    .paragraph-box {
-      margin-bottom: 16px;
-    }
-
-    .tag {
-      display: inline-block;
-      background: #e8f6ff;
-      color: #2878b5;
-      padding: 7px 11px;
-      border-radius: 999px;
-      margin: 4px;
-      font-size: 14px;
-      font-weight: 700;
-    }
-
-    .sample {
+    textarea:focus { border-color: #4da3ff; background: #fff; }
+    .paragraph { margin: 14px 0; }
+    .paragraph-title { font-size: 18px; font-weight: 900; color: #2b7a78; margin-bottom: 6px; }
+    .btn-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
+    .secondary { background: #888; }
+    .output {
+      white-space: pre-wrap;
       background: #fffaf0;
-      border-radius: 15px;
-      padding: 15px;
-      line-height: 1.95;
-      font-size: 16px;
-      white-space: normal;
+      border-radius: 18px;
+      padding: 16px;
+      min-height: 90px;
+      font-size: 18px;
     }
-
-    .toolbar {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 6px;
-      margin-top: 8px;
-    }
-
-    .count-box {
-      background: #f7fbff;
-      border: 1px solid #d9edff;
-      border-radius: 14px;
-      padding: 12px 14px;
-      color: #2878b5;
-      font-weight: 800;
-      margin-top: 10px;
-    }
-
-    footer {
-      text-align: center;
-      padding: 24px 16px 34px;
-      color: #777;
-      font-size: 14px;
-    }
-
-    @media (max-width: 720px) {
-      header h1 { font-size: 26px; }
-      main { padding: 12px; margin-top: 12px; }
-      .card { padding: 17px; border-radius: 20px; }
-      .grid { grid-template-columns: 1fr; }
-      .topic-box { font-size: 21px; }
-      button { width: 100%; margin-right: 0; }
-    }
+    .count { color: #666; font-size: 15px; margin-top: 8px; }
+    footer { text-align: center; color: #777; padding: 12px 10px 28px; font-size: 14px; }
   </style>
 </head>
 <body>
-
 <header>
   <h1>三年級作文小幫手</h1>
-  <p>用「四段式」方法，從不會寫，慢慢學會寫完整作文</p>
+  <p>點題目 → 看引導 → 看範例 → 分段練習</p>
 </header>
 
 <main>
-
   <section class="card">
     <h2>一、作文題目抽籤</h2>
-    <p>按一下按鈕，抽一個老師很可能出的作文題目。</p>
-    <div class="toolbar">
-      <button onclick="randomTopic()">抽一個作文題目</button>
-      <button class="secondary" onclick="showHintsForTopic()">看這題怎麼寫</button>
-    </div>
-    <div id="topicBox" class="topic-box">今天的作文題目會出現在這裡</div>
-    <div id="topicHint" class="hint" style="display:none;"></div>
+    <p class="small">按下面按鈕，會自動換題目、四段引導和範例。</p>
+    <button onclick="randomTopic()">抽一個作文題目</button>
+    <div id="topicBox" class="topic-box"></div>
   </section>
 
   <section class="card">
     <h2>二、常見作文題型</h2>
-    <span class="tag">我的家人</span>
-    <span class="tag">我的朋友</span>
-    <span class="tag">快樂的一天</span>
-    <span class="tag">一次旅遊</span>
-    <span class="tag">我的學校</span>
-    <span class="tag">我最喜歡的動物</span>
-    <span class="tag">我的夢想</span>
-    <span class="tag">難忘的一件事</span>
-    <span class="tag">幫忙做家事</span>
-    <span class="tag">下雨天</span>
-    <span class="tag">運動會</span>
-    <span class="tag">園遊會</span>
-    <span class="tag">我學會的一件事</span>
-    <span class="tag">我最喜歡的季節</span>
-    <span class="tag">生日的一天</span>
+    <p class="small">現在這些按鈕可以按。按了會立刻出現該題目的引導和範例。</p>
+    <div id="chips" class="chips"></div>
   </section>
 
   <section class="card">
-    <h2>三、三年級作文四段式</h2>
-    <div class="grid">
-      <div class="hint">
-        <div class="section-title">第 1 段：開頭</div>
-        寫時間、地點、人物、心情。<br>
-        例：今天早上，天氣很好，我和爸爸媽媽一起去海邊玩。
-      </div>
-      <div class="hint">
-        <div class="section-title">第 2 段：經過一</div>
-        寫先發生什麼事，看到了什麼，做了什麼。<br>
-        例：到了那裡，我看到藍藍的大海和白白的浪花。
-      </div>
-      <div class="hint">
-        <div class="section-title">第 3 段：經過二</div>
-        寫最有趣、最難忘、最開心的地方。<br>
-        例：最有趣的是，我和爸爸一起堆沙堡。
-      </div>
-      <div class="hint">
-        <div class="section-title">第 4 段：結尾感想</div>
-        寫自己的心情、學到什麼、希望下次怎樣。<br>
-        例：雖然我有一點累，但是心裡很快樂。
-      </div>
-    </div>
+    <h2>三、四段式寫作引導</h2>
+    <div id="guideBox" class="guide-box"></div>
   </section>
 
   <section class="card">
-    <h2>四、句子小幫手</h2>
-    <div class="hint">
-      <strong>開頭句：</strong><br>
-      今天早上，天氣很好，我和家人一起去外面玩。<br>
-      星期六下午，我和好朋友一起到公園玩。<br>
-      暑假的一天，我經歷了一件難忘的事。
-    </div>
-    <div class="hint">
-      <strong>描寫句：</strong><br>
-      天空藍藍的，白雲像棉花一樣。<br>
-      微風吹在臉上，讓人覺得很舒服。<br>
-      大家開心地笑著，現場充滿快樂的聲音。
-    </div>
-    <div class="hint">
-      <strong>感想句：</strong><br>
-      這一天讓我留下美好的回憶。<br>
-      我覺得和家人在一起是最幸福的事。<br>
-      這次的經驗讓我學會要勇敢嘗試。
-    </div>
+    <h2>四、範例作文</h2>
+    <div id="sampleBox" class="sample-box"></div>
   </section>
 
   <section class="card">
-    <h2>五、開始寫作文</h2>
-    <p>請照著四段式，一段一段寫。每段先寫 3 到 5 句就可以。</p>
+    <h2>五、開始練習寫作文</h2>
+    <p class="small">照著四段式，一段一段寫。最後按「產生完整作文」。</p>
 
-    <div class="paragraph-box">
-      <div class="section-title">第 1 段：開頭</div>
-      <textarea id="p1" oninput="updateCount()" placeholder="寫時間、地點、人物、心情。例如：今天早上，天氣很好，我和爸爸媽媽一起去海邊玩。"></textarea>
+    <div class="paragraph">
+      <div class="paragraph-title">第 1 段：開頭</div>
+      <textarea id="p1" oninput="updateCount()" placeholder="寫時間、地點、人物、心情。"></textarea>
+    </div>
+    <div class="paragraph">
+      <div class="paragraph-title">第 2 段：事情經過一</div>
+      <textarea id="p2" oninput="updateCount()" placeholder="寫事情一開始發生了什麼，你看到什麼、聽到什麼。"></textarea>
+    </div>
+    <div class="paragraph">
+      <div class="paragraph-title">第 3 段：事情經過二</div>
+      <textarea id="p3" oninput="updateCount()" placeholder="寫最有趣、最特別、最難忘的一件事。"></textarea>
+    </div>
+    <div class="paragraph">
+      <div class="paragraph-title">第 4 段：結尾感想</div>
+      <textarea id="p4" oninput="updateCount()" placeholder="寫你的心情、學到什麼、希望下次怎麼做。"></textarea>
     </div>
 
-    <div class="paragraph-box">
-      <div class="section-title">第 2 段：事情經過一</div>
-      <textarea id="p2" oninput="updateCount()" placeholder="寫你先做了什麼、看到什麼。例如：到了海邊，我看到藍藍的大海和白白的浪花。"></textarea>
-    </div>
-
-    <div class="paragraph-box">
-      <div class="section-title">第 3 段：事情經過二</div>
-      <textarea id="p3" oninput="updateCount()" placeholder="寫最有趣或最難忘的地方。例如：我和爸爸一起堆沙堡，媽媽幫我們拍照。"></textarea>
-    </div>
-
-    <div class="paragraph-box">
-      <div class="section-title">第 4 段：結尾感想</div>
-      <textarea id="p4" oninput="updateCount()" placeholder="寫你的心情和感想。例如：雖然我有一點累，但是心裡很快樂。"></textarea>
-    </div>
-
-    <div class="toolbar">
+    <div class="btn-row">
       <button onclick="combineEssay()">產生完整作文</button>
-      <button class="secondary" onclick="copyEssay()">複製作文</button>
-      <button class="warn" onclick="clearEssay()">清除內容</button>
+      <button class="secondary" onclick="clearEssay()">清除</button>
     </div>
-    <div id="countBox" class="count-box">目前字數：約 0 字</div>
+    <div id="count" class="count">目前字數：0 字</div>
   </section>
 
   <section class="card">
     <h2>六、我的完整作文</h2>
-    <div id="essayOutput" class="sample">寫完後，按「產生完整作文」，內容會出現在這裡。</div>
+    <div id="essayOutput" class="output">寫完後，按「產生完整作文」，內容會出現在這裡。</div>
   </section>
-
-  <section class="card">
-    <h2>七、範例作文</h2>
-    <div class="sample">
-      <strong>題目：一天的快樂旅遊</strong><br><br>
-      今天早上，天氣很好，太陽公公露出笑臉。我和爸爸、媽媽一起去海邊玩，我的心情非常開心。<br><br>
-      到了海邊，我看到藍藍的大海和白白的浪花。海風吹在臉上，涼涼的，好舒服。我脫下鞋子，踩在沙灘上，沙子軟軟的，像棉花一樣。<br><br>
-      中午，我們在附近的小店吃午餐。我吃了熱熱的麵和甜甜的冰淇淋。下午，我們又沿著海邊散步，還看到海鷗在天空飛來飛去，好像在跟我們打招呼。<br><br>
-      傍晚，我們準備回家。雖然我有一點累，但是心裡很快樂。今天的旅遊讓我留下美好的回憶，我希望下次還可以再和家人一起出去玩。
-    </div>
-  </section>
-
 </main>
 
-<footer>
-  三年級作文練習 APP｜四段式作文法｜適合手機與平板使用
-</footer>
+<footer>三年級作文練習 APP｜繁體中文｜GitHub Pages 版</footer>
 
 <script>
-  const topics = [
-    "一天的快樂旅遊",
-    "我的爸爸",
-    "我的媽媽",
-    "我的好朋友",
-    "我最喜歡的老師",
-    "我的學校",
-    "我最喜歡的動物",
-    "我最喜歡的玩具",
-    "我最喜歡的食物",
-    "快樂的星期天",
-    "難忘的一件事",
-    "我學會的一件事",
-    "幫忙做家事",
-    "一次生病的經驗",
-    "下雨天",
-    "我的生日",
-    "運動會",
-    "園遊會",
-    "我最喜歡的季節",
-    "我最喜歡的一本書",
-    "我長大以後想做什麼",
-    "一次特別的校外教學",
-    "和家人一起吃飯",
-    "我最喜歡的地方",
-    "放學後的一件事",
-    "第一次搭火車",
-    "第一次煮東西",
-    "我最感謝的人",
-    "如果我有一雙翅膀",
-    "如果我是一隻小鳥",
-    "我家的寵物",
-    "一次幫助別人的經驗",
-    "我最勇敢的一次",
-    "春天來了",
-    "夏天的回憶",
-    "秋天的景色",
-    "冬天的早晨",
-    "熱鬧的市場",
-    "快樂的公園",
-    "我的房間",
-    "我最喜歡的運動",
-    "我和家人的一天",
-    "一次校外教學",
-    "我最喜歡的節日",
-    "我心中的英雄"
-  ];
-
-  let currentTopic = "";
-
-  function randomTopic() {
-    const randomIndex = Math.floor(Math.random() * topics.length);
-    currentTopic = topics[randomIndex];
-    document.getElementById("topicBox").innerText = currentTopic;
-    document.getElementById("topicHint").style.display = "none";
+const data = {
+  "我的家人": {
+    guide: ["第 1 段：先介紹你的家人有誰，你最想寫哪一位。","第 2 段：寫他的外表、個性，還有平常會做什麼事。","第 3 段：寫一件你和他一起發生的事情。","第 4 段：寫你對他的感謝、喜歡或想說的話。"],
+    sample: "我的家人有爸爸、媽媽和我。今天我想介紹我的媽媽，因為她每天都很照顧我。\n\n媽媽有一雙溫柔的眼睛，說話的聲音也很好聽。她平常會煮飯、整理家裡，還會陪我寫功課。\n\n有一次我數學不會寫，心裡很著急。媽媽沒有生氣，她坐在我旁邊，一題一題慢慢教我。後來我終於學會了，心裡覺得很開心。\n\n我覺得媽媽很辛苦，也很愛我。我以後要更認真讀書，也要幫忙做家事，讓媽媽可以輕鬆一點。"
+  },
+  "我的朋友": {
+    guide: ["第 1 段：介紹朋友的名字，說明你們怎麼認識。","第 2 段：寫朋友的外表、個性和優點。","第 3 段：寫你們一起玩或互相幫忙的一件事。","第 4 段：寫你珍惜這位朋友，希望友誼一直很好。"],
+    sample: "我有一位好朋友，他的名字叫小宇。我們是在學校認識的，從一年級開始就是同班同學。\n\n小宇個子不高，但是跑步很快。他很愛笑，也很會幫助別人，所以班上的同學都喜歡和他一起玩。\n\n有一次下課時，我不小心跌倒了，膝蓋有一點痛。小宇馬上跑過來扶我，還陪我去找老師。那時候我覺得他真是一個好朋友。\n\n我很珍惜這位朋友。希望我們以後可以一起讀書、一起玩，也一直當好朋友。"
+  },
+  "快樂的一天": {
+    guide: ["第 1 段：寫這一天是什麼時候，你和誰在一起，心情如何。","第 2 段：寫一開始做了什麼有趣的事。","第 3 段：寫最開心、最難忘的地方。","第 4 段：寫這一天帶給你的感覺和回憶。"],
+    sample: "星期天早上，天氣很好，我和爸爸媽媽一起去公園玩。我的心情非常開心，因為我很久沒有出去玩了。\n\n到了公園，我看到很多小朋友在玩溜滑梯，也看到有人在草地上野餐。我和爸爸一起打球，媽媽在旁邊幫我們拍照。\n\n最開心的是，我們一起坐在樹下吃點心。風吹過來很舒服，我一邊吃餅乾，一邊聽爸爸媽媽聊天，覺得很幸福。\n\n這真是快樂的一天。雖然回家的時候有一點累，但是我的心裡充滿美好的回憶。"
+  },
+  "一次旅遊": {
+    guide: ["第 1 段：寫旅遊的時間、地點、和誰一起去。","第 2 段：寫到了那裡看到的風景和做的事情。","第 3 段：寫旅途中最有趣或最難忘的部分。","第 4 段：寫旅遊後的心情和感想。"],
+    sample: "暑假的一天，我和爸爸媽媽一起去海邊旅遊。一路上，我看著窗外的風景，心情又期待又開心。\n\n到了海邊，我看到藍藍的大海和白白的浪花。海風吹在臉上很舒服，我脫下鞋子，在沙灘上慢慢走。\n\n最有趣的是，我和爸爸一起堆沙堡。雖然浪花差一點把沙堡沖走，但是我們還是笑得很開心。媽媽也幫我們拍了很多照片。\n\n這次旅遊讓我覺得很快樂。我希望下次還可以和家人一起出去玩，留下更多美好的回憶。"
+  },
+  "我的學校": {
+    guide: ["第 1 段：介紹你的學校，或你對學校的第一印象。","第 2 段：寫校園裡的地方，例如教室、操場、圖書館。","第 3 段：寫你在學校最喜歡做的事情。","第 4 段：寫你喜歡學校的原因和感想。"],
+    sample: "我的學校是一個很溫暖的地方。每天早上走進校門，我都會看到老師和同學，心裡覺得很安心。\n\n學校裡有明亮的教室、寬廣的操場，還有安靜的圖書館。下課時，操場上常常充滿同學的笑聲。\n\n我最喜歡在學校上自然課，因為可以觀察植物和小動物。有時候老師還會讓我們做實驗，我覺得很有趣。\n\n我很喜歡我的學校，因為這裡有老師的照顧，也有同學的陪伴。我希望自己每天都能快樂學習。"
+  },
+  "我最喜歡的動物": {
+    guide: ["第 1 段：說你最喜歡哪一種動物。","第 2 段：寫牠的外表、動作和聲音。","第 3 段：寫你為什麼喜歡牠，或你和牠的故事。","第 4 段：寫你想如何照顧牠或保護動物。"],
+    sample: "我最喜歡的動物是小狗，因為牠很可愛，也很聰明。每次看到小狗搖尾巴，我都覺得很開心。\n\n小狗有圓圓的眼睛、濕濕的鼻子，走路的樣子很活潑。有些小狗還會汪汪叫，好像在跟人打招呼。\n\n我喜歡小狗，是因為牠會陪伴主人。有一次我看到鄰居的小狗跑來跑去，還把球叼回來，讓我覺得牠真的很厲害。\n\n如果以後我可以養小狗，我一定會好好照顧牠。我也希望大家都能愛護動物，不要隨便傷害牠們。"
+  },
+  "我的夢想": {
+    guide: ["第 1 段：寫你的夢想是什麼。","第 2 段：寫你為什麼有這個夢想。","第 3 段：寫你現在可以怎麼努力。","第 4 段：寫你希望未來成為什麼樣的人。"],
+    sample: "我的夢想是長大後當一位老師，因為老師可以教小朋友很多知識，也可以幫助學生進步。\n\n我會有這個夢想，是因為我的老師很有耐心。每次我不懂的時候，老師都會慢慢說明，讓我覺得很感動。\n\n為了完成夢想，我現在要認真讀書，也要練習清楚地表達自己的想法。我還要學會關心別人，因為老師需要有愛心。\n\n我知道完成夢想不容易，但是我會一步一步努力。希望有一天，我也能成為一位溫柔又認真的老師。"
+  },
+  "難忘的一件事": {
+    guide: ["第 1 段：寫這件事發生在什麼時候、哪裡。","第 2 段：寫事情一開始的情況。","第 3 段：寫讓你最難忘的部分。","第 4 段：寫你從這件事學到什麼。"],
+    sample: "有一件事讓我一直忘不了，那是上學期運動會發生的事。那天操場上很熱鬧，大家都很期待比賽。\n\n我參加的是跑步比賽。比賽開始前，我的心跳得很快，手也有一點發抖，怕自己跑不好。\n\n哨聲一響，我就努力往前跑。雖然我沒有得到第一名，但是同學們大聲幫我加油，讓我覺得很感動。\n\n這件事讓我知道，結果不是最重要的，勇敢參加和努力完成才重要。這真是一件難忘的事。"
+  },
+  "幫忙做家事": {
+    guide: ["第 1 段：寫你在什麼時候幫忙做家事。","第 2 段：寫你做了哪些家事。","第 3 段：寫做家事時遇到的困難或有趣的地方。","第 4 段：寫你了解家人的辛苦，願意多幫忙。"],
+    sample: "星期六下午，我看到媽媽在整理家裡，覺得她很辛苦，所以我決定幫忙做家事。\n\n我先把自己的書桌整理乾淨，再幫忙把玩具放回箱子裡。接著，我拿抹布擦桌子，雖然擦得有一點慢，但我很認真。\n\n最有趣的是，我在整理書包時，找到一張很久以前的貼紙。我一邊整理，一邊覺得自己的房間變乾淨了，心情也變好了。\n\n這次做家事讓我知道，整理家裡真的不容易。以後我會主動幫忙，讓爸爸媽媽輕鬆一點。"
+  },
+  "下雨天": {
+    guide: ["第 1 段：寫下雨的時間和天氣樣子。","第 2 段：寫你看到、聽到、感受到什麼。","第 3 段：寫下雨天發生的一件事。","第 4 段：寫你對下雨天的感覺。"],
+    sample: "今天早上，天空灰灰的，不久就下起雨來。雨滴打在窗戶上，發出滴滴答答的聲音。\n\n我看到路上的人撐著雨傘，有的人穿著雨衣騎車。地上出現一個個小水坑，車子經過時還濺起水花。\n\n放學時，媽媽拿著雨傘來接我。我們一起慢慢走回家，雖然鞋子有一點濕，但是我覺得很溫暖。\n\n下雨天雖然不方便出去玩，可是也有安靜的感覺。我喜歡坐在窗邊看雨，覺得很舒服。"
+  },
+  "運動會": {
+    guide: ["第 1 段：寫運動會在什麼時候舉行。","第 2 段：寫操場上的熱鬧情形。","第 3 段：寫你參加或看到的比賽。","第 4 段：寫你對運動會的感想。"],
+    sample: "星期五是學校的運動會，大家一早就很興奮。操場上掛著彩旗，看起來非常熱鬧。\n\n開幕時，每個班級都排得很整齊。老師提醒我們要注意安全，同學們也互相加油打氣。\n\n我參加了大隊接力。輪到我跑的時候，我用最快的速度往前衝。雖然很累，但是聽到大家的加油聲，我又有了力量。\n\n這次運動會讓我知道團結合作很重要。我覺得這一天又刺激又快樂，希望明年運動會也能這麼精彩。"
+  },
+  "園遊會": {
+    guide: ["第 1 段：寫園遊會的時間、地點和心情。","第 2 段：寫有哪些攤位和活動。","第 3 段：寫你最喜歡的一個攤位或遊戲。","第 4 段：寫園遊會帶給你的回憶。"],
+    sample: "星期六，學校舉辦園遊會，我和爸爸媽媽一起到學校參加。還沒走進校門，我就聽到熱鬧的聲音。\n\n園遊會裡有很多攤位，有賣飲料的、有賣點心的，還有好玩的遊戲攤。每一個攤位前面都有很多人排隊。\n\n我最喜歡套圈圈的遊戲。第一次我沒有套中，第二次我更認真瞄準，終於套到一個小獎品，讓我開心地跳起來。\n\n這次園遊會非常有趣，也讓我感受到大家一起合作的快樂。我希望下次還可以參加這麼熱鬧的活動。"
+  },
+  "我學會的一件事": {
+    guide: ["第 1 段：寫你學會了什麼事情。","第 2 段：寫一開始學的時候遇到什麼困難。","第 3 段：寫你怎麼練習，最後成功了。","第 4 段：寫你學到的道理。"],
+    sample: "我學會的一件事是騎腳踏車。剛開始學的時候，我很害怕跌倒，所以一直不敢騎太快。\n\n爸爸在旁邊扶著我，告訴我要看前方，不要一直看地上。可是我還是搖搖晃晃，差一點跌倒。\n\n後來我每天都練習一點點。終於有一天，爸爸放手了，我也能自己往前騎。那一刻，我高興得大叫起來。\n\n這件事讓我知道，只要不放棄，多練習就會進步。以後遇到困難，我也要勇敢嘗試。"
+  },
+  "我最喜歡的季節": {
+    guide: ["第 1 段：寫你最喜歡哪個季節。","第 2 段：寫這個季節的天氣和景色。","第 3 段：寫你在這個季節喜歡做的事。","第 4 段：寫你喜歡這個季節的原因。"],
+    sample: "我最喜歡的季節是春天，因為春天的天氣很舒服，不會太冷，也不會太熱。\n\n春天來的時候，花兒慢慢開了，樹葉也變得更綠。走在路上，常常可以看到美麗的花和小小的蝴蝶。\n\n我喜歡在春天和家人去公園散步。有時候我們會坐在草地上休息，看看天空，也看看小鳥飛來飛去。\n\n春天讓我覺得充滿希望。我喜歡這個溫暖又美麗的季節，希望每年春天都可以留下快樂的回憶。"
+  },
+  "生日的一天": {
+    guide: ["第 1 段：寫生日那天的時間和心情。","第 2 段：寫家人或朋友怎麼幫你慶祝。","第 3 段：寫最開心或最感動的部分。","第 4 段：寫你的感謝和願望。"],
+    sample: "今天是我的生日，一早起床我就覺得很開心。爸爸媽媽對我說生日快樂，讓我覺得很幸福。\n\n晚上，我們一起吃晚餐，桌上還有一個漂亮的蛋糕。蛋糕上插著蠟燭，大家一起唱生日快樂歌。\n\n最讓我感動的是，媽媽送我一張卡片，上面寫著鼓勵我的話。我看了以後，心裡覺得暖暖的。\n\n這是很快樂的一天。我很感謝家人對我的愛，也希望自己長大一歲後，可以更懂事、更努力。"
   }
+};
 
-  function showHintsForTopic() {
-    if (!currentTopic) {
-      randomTopic();
-    }
+const topics = Object.keys(data);
+let currentTopic = "放學後的一件事";
 
-    const hint = `
-      <strong>題目：${currentTopic}</strong><br><br>
-      <strong>第 1 段：</strong>先寫什麼時間、在哪裡、和誰一起、心情如何。<br>
-      <strong>第 2 段：</strong>寫事情一開始發生了什麼，你看到什麼、聽到什麼。<br>
-      <strong>第 3 段：</strong>寫最有趣、最特別、最難忘的一件事。<br>
-      <strong>第 4 段：</strong>寫你的感想，例如開心、感謝、學到什麼，或希望下次再做什麼。
-    `;
+data["放學後的一件事"] = {
+  guide: ["第 1 段：先寫什麼時間、在哪裡、和誰一起、心情如何。","第 2 段：寫事情一開始發生了什麼，你看到什麼、聽到什麼。","第 3 段：寫最有趣、最特別、最難忘的一件事。","第 4 段：寫你的感想，例如開心、感謝、學到什麼，或希望下次再做什麼。"],
+  sample: "今天放學後，我和同學一起走出教室。天空很藍，風輕輕吹過來，我的心情很輕鬆。\n\n我們先到操場旁邊等家人來接。這時候，我看到幾位同學在打球，也聽到大家開心的笑聲。\n\n最有趣的是，我和朋友一起玩猜拳遊戲。雖然只是短短幾分鐘，但是我們笑得很開心，連等人的時間都變得很快。\n\n這件事讓我覺得，放學後的小時光也可以很快樂。我希望以後能珍惜和同學相處的每一天。"
+};
 
-    const box = document.getElementById("topicHint");
-    box.innerHTML = hint;
-    box.style.display = "block";
+function init() {
+  const chipBox = document.getElementById("chips");
+  const allTopics = ["我的家人","我的朋友","快樂的一天","一次旅遊","我的學校","我最喜歡的動物","我的夢想","難忘的一件事","幫忙做家事","下雨天","運動會","園遊會","我學會的一件事","我最喜歡的季節","生日的一天","放學後的一件事"];
+  chipBox.innerHTML = allTopics.map(t => `<button type="button" class="chip" data-topic="${t}">${t}</button>`).join("");
+  document.querySelectorAll(".chip").forEach(btn => {
+    btn.addEventListener("click", () => selectTopic(btn.dataset.topic, true));
+  });
+  selectTopic("放學後的一件事", false);
+}
+
+function selectTopic(topic, scrollToGuide) {
+  currentTopic = topic;
+  document.querySelectorAll(".chip").forEach(btn => {
+    btn.classList.toggle("active", btn.dataset.topic === topic);
+  });
+
+  const item = data[topic];
+  document.getElementById("topicBox").innerHTML =
+    `<div class="topic-title">題目：${topic}</div><p>請看下面的四段引導和範例，再開始練習。</p>`;
+
+  document.getElementById("guideBox").innerHTML =
+    item.guide.map((g, i) => `<p><span class="label">${g.split("：")[0]}：</span>${g.substring(g.indexOf("：") + 1)}</p>`).join("");
+
+  document.getElementById("sampleBox").textContent = item.sample;
+
+  document.getElementById("p1").placeholder = item.guide[0];
+  document.getElementById("p2").placeholder = item.guide[1];
+  document.getElementById("p3").placeholder = item.guide[2];
+  document.getElementById("p4").placeholder = item.guide[3];
+
+  if (scrollToGuide) {
+    document.getElementById("guideBox").scrollIntoView({ behavior: "smooth", block: "start" });
   }
+}
 
-  function getParagraphs() {
-    return [
-      document.getElementById("p1").value.trim(),
-      document.getElementById("p2").value.trim(),
-      document.getElementById("p3").value.trim(),
-      document.getElementById("p4").value.trim()
-    ];
-  }
+function randomTopic() {
+  const all = Object.keys(data);
+  const topic = all[Math.floor(Math.random() * all.length)];
+  selectTopic(topic, true);
+}
 
-  function combineEssay() {
-    const paragraphs = getParagraphs();
-    const hasContent = paragraphs.some(p => p.length > 0);
+function combineEssay() {
+  const parts = ["p1","p2","p3","p4"].map(id => document.getElementById(id).value.trim()).filter(Boolean);
+  document.getElementById("essayOutput").textContent =
+    parts.length ? `題目：${currentTopic}\n\n` + parts.join("\n\n") : "請先在上面的四個段落寫作文喔！";
+}
 
-    if (!hasContent) {
-      document.getElementById("essayOutput").innerHTML = "請先在上面的四個段落寫作文喔！";
-      return;
-    }
+function clearEssay() {
+  ["p1","p2","p3","p4"].forEach(id => document.getElementById(id).value = "");
+  document.getElementById("essayOutput").textContent = "寫完後，按「產生完整作文」，內容會出現在這裡。";
+  updateCount();
+}
 
-    const title = currentTopic ? `<strong>題目：${currentTopic}</strong><br><br>` : "";
-    const body = paragraphs.filter(p => p.length > 0).map(p => escapeHtml(p)).join("<br><br>");
-    document.getElementById("essayOutput").innerHTML = title + body;
-  }
+function updateCount() {
+  const text = ["p1","p2","p3","p4"].map(id => document.getElementById(id).value).join("");
+  const count = text.replace(/\s/g, "").length;
+  document.getElementById("count").textContent = `目前字數：${count} 字`;
+}
 
-  function copyEssay() {
-    const paragraphs = getParagraphs();
-    const title = currentTopic ? `題目：${currentTopic}\n\n` : "";
-    const text = title + paragraphs.filter(p => p.length > 0).join("\n\n");
-
-    if (!text.trim()) {
-      alert("請先寫作文，再複製喔！");
-      return;
-    }
-
-    navigator.clipboard.writeText(text).then(() => {
-      alert("作文已經複製好了！");
-    }).catch(() => {
-      alert("複製失敗，可以手動選取下方完整作文。");
-    });
-  }
-
-  function clearEssay() {
-    document.getElementById("p1").value = "";
-    document.getElementById("p2").value = "";
-    document.getElementById("p3").value = "";
-    document.getElementById("p4").value = "";
-    document.getElementById("essayOutput").innerHTML = "寫完後，按「產生完整作文」，內容會出現在這裡。";
-    updateCount();
-  }
-
-  function updateCount() {
-    const total = getParagraphs().join("").replace(/\s/g, "").length;
-    document.getElementById("countBox").innerText = `目前字數：約 ${total} 字`;
-  }
-
-  function escapeHtml(text) {
-    return text
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/\n/g, "<br>");
-  }
+document.addEventListener("DOMContentLoaded", init);
 </script>
-
 </body>
 </html>
