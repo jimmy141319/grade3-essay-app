@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>三年級作文小幫手</title>
+  <meta name="description" content="國小三年級作文練習工具，包含作文題目、四段式架構、提示句與練習區。" />
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Noto Sans TC", "Microsoft JhengHei", Arial, sans-serif;
+      background: linear-gradient(180deg, #fff8e7 0%, #e8f6ff 100%);
+      color: #333;
+      min-height: 100vh;
+    }
+
+    header {
+      background: linear-gradient(135deg, #ffb347, #ff8c42);
+      color: white;
+      text-align: center;
+      padding: 28px 16px 30px;
+      border-bottom-left-radius: 32px;
+      border-bottom-right-radius: 32px;
+      box-shadow: 0 6px 16px rgba(255, 140, 66, 0.28);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 30px;
+      letter-spacing: 1px;
+    }
+
+    header p {
+      margin: 10px 0 0;
+      font-size: 16px;
+      opacity: 0.95;
+    }
+
+    main {
+      width: 100%;
+      max-width: 960px;
+      margin: 20px auto 40px;
+      padding: 16px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.96);
+      border-radius: 22px;
+      padding: 20px;
+      margin-bottom: 18px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+      border: 1px solid rgba(255,255,255,0.8);
+    }
+
+    h2 {
+      color: #ff8c00;
+      margin: 0 0 12px;
+      font-size: 22px;
+    }
+
+    p {
+      line-height: 1.8;
+      margin: 8px 0 12px;
+    }
+
+    button {
+      background: #4da3ff;
+      color: white;
+      border: none;
+      border-radius: 14px;
+      padding: 12px 18px;
+      font-size: 16px;
+      cursor: pointer;
+      margin: 6px 4px 6px 0;
+      box-shadow: 0 4px 10px rgba(77, 163, 255, 0.26);
+    }
+
+    button:hover {
+      background: #2688ee;
+    }
+
+    button.secondary {
+      background: #7ac88b;
+      box-shadow: 0 4px 10px rgba(122, 200, 139, 0.26);
+    }
+
+    button.secondary:hover {
+      background: #55b86c;
+    }
+
+    button.warn {
+      background: #ff9f68;
+      box-shadow: 0 4px 10px rgba(255, 159, 104, 0.26);
+    }
+
+    button.warn:hover {
+      background: #f07e3d;
+    }
+
+    .topic-box {
+      background: #fff3cd;
+      border: 2px dashed #ffb347;
+      border-radius: 18px;
+      padding: 18px;
+      font-size: 23px;
+      font-weight: 800;
+      text-align: center;
+      margin-top: 12px;
+      color: #7a4b00;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .section-title {
+      font-weight: 800;
+      color: #2b7a78;
+      font-size: 18px;
+      margin: 4px 0 8px;
+    }
+
+    .hint {
+      background: #f0f9ff;
+      border-left: 6px solid #4da3ff;
+      padding: 13px 14px;
+      margin: 10px 0;
+      border-radius: 12px;
+      line-height: 1.85;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 116px;
+      border: 2px solid #cde7ff;
+      border-radius: 15px;
+      padding: 12px;
+      font-size: 17px;
+      line-height: 1.85;
+      resize: vertical;
+      outline: none;
+      background: #fff;
+    }
+
+    textarea:focus {
+      border-color: #4da3ff;
+      box-shadow: 0 0 0 4px rgba(77, 163, 255, 0.12);
+    }
+
+    .paragraph-box {
+      margin-bottom: 16px;
+    }
+
+    .tag {
+      display: inline-block;
+      background: #e8f6ff;
+      color: #2878b5;
+      padding: 7px 11px;
+      border-radius: 999px;
+      margin: 4px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .sample {
+      background: #fffaf0;
+      border-radius: 15px;
+      padding: 15px;
+      line-height: 1.95;
+      font-size: 16px;
+      white-space: normal;
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .count-box {
+      background: #f7fbff;
+      border: 1px solid #d9edff;
+      border-radius: 14px;
+      padding: 12px 14px;
+      color: #2878b5;
+      font-weight: 800;
+      margin-top: 10px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 24px 16px 34px;
+      color: #777;
+      font-size: 14px;
+    }
+
+    @media (max-width: 720px) {
+      header h1 { font-size: 26px; }
+      main { padding: 12px; margin-top: 12px; }
+      .card { padding: 17px; border-radius: 20px; }
+      .grid { grid-template-columns: 1fr; }
+      .topic-box { font-size: 21px; }
+      button { width: 100%; margin-right: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>三年級作文小幫手</h1>
+  <p>用「四段式」方法，從不會寫，慢慢學會寫完整作文</p>
+</header>
+
+<main>
+
+  <section class="card">
+    <h2>一、作文題目抽籤</h2>
+    <p>按一下按鈕，抽一個老師很可能出的作文題目。</p>
+    <div class="toolbar">
+      <button onclick="randomTopic()">抽一個作文題目</button>
+      <button class="secondary" onclick="showHintsForTopic()">看這題怎麼寫</button>
+    </div>
+    <div id="topicBox" class="topic-box">今天的作文題目會出現在這裡</div>
+    <div id="topicHint" class="hint" style="display:none;"></div>
+  </section>
+
+  <section class="card">
+    <h2>二、常見作文題型</h2>
+    <span class="tag">我的家人</span>
+    <span class="tag">我的朋友</span>
+    <span class="tag">快樂的一天</span>
+    <span class="tag">一次旅遊</span>
+    <span class="tag">我的學校</span>
+    <span class="tag">我最喜歡的動物</span>
+    <span class="tag">我的夢想</span>
+    <span class="tag">難忘的一件事</span>
+    <span class="tag">幫忙做家事</span>
+    <span class="tag">下雨天</span>
+    <span class="tag">運動會</span>
+    <span class="tag">園遊會</span>
+    <span class="tag">我學會的一件事</span>
+    <span class="tag">我最喜歡的季節</span>
+    <span class="tag">生日的一天</span>
+  </section>
+
+  <section class="card">
+    <h2>三、三年級作文四段式</h2>
+    <div class="grid">
+      <div class="hint">
+        <div class="section-title">第 1 段：開頭</div>
+        寫時間、地點、人物、心情。<br>
+        例：今天早上，天氣很好，我和爸爸媽媽一起去海邊玩。
+      </div>
+      <div class="hint">
+        <div class="section-title">第 2 段：經過一</div>
+        寫先發生什麼事，看到了什麼，做了什麼。<br>
+        例：到了那裡，我看到藍藍的大海和白白的浪花。
+      </div>
+      <div class="hint">
+        <div class="section-title">第 3 段：經過二</div>
+        寫最有趣、最難忘、最開心的地方。<br>
+        例：最有趣的是，我和爸爸一起堆沙堡。
+      </div>
+      <div class="hint">
+        <div class="section-title">第 4 段：結尾感想</div>
+        寫自己的心情、學到什麼、希望下次怎樣。<br>
+        例：雖然我有一點累，但是心裡很快樂。
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>四、句子小幫手</h2>
+    <div class="hint">
+      <strong>開頭句：</strong><br>
+      今天早上，天氣很好，我和家人一起去外面玩。<br>
+      星期六下午，我和好朋友一起到公園玩。<br>
+      暑假的一天，我經歷了一件難忘的事。
+    </div>
+    <div class="hint">
+      <strong>描寫句：</strong><br>
+      天空藍藍的，白雲像棉花一樣。<br>
+      微風吹在臉上，讓人覺得很舒服。<br>
+      大家開心地笑著，現場充滿快樂的聲音。
+    </div>
+    <div class="hint">
+      <strong>感想句：</strong><br>
+      這一天讓我留下美好的回憶。<br>
+      我覺得和家人在一起是最幸福的事。<br>
+      這次的經驗讓我學會要勇敢嘗試。
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>五、開始寫作文</h2>
+    <p>請照著四段式，一段一段寫。每段先寫 3 到 5 句就可以。</p>
+
+    <div class="paragraph-box">
+      <div class="section-title">第 1 段：開頭</div>
+      <textarea id="p1" oninput="updateCount()" placeholder="寫時間、地點、人物、心情。例如：今天早上，天氣很好，我和爸爸媽媽一起去海邊玩。"></textarea>
+    </div>
+
+    <div class="paragraph-box">
+      <div class="section-title">第 2 段：事情經過一</div>
+      <textarea id="p2" oninput="updateCount()" placeholder="寫你先做了什麼、看到什麼。例如：到了海邊，我看到藍藍的大海和白白的浪花。"></textarea>
+    </div>
+
+    <div class="paragraph-box">
+      <div class="section-title">第 3 段：事情經過二</div>
+      <textarea id="p3" oninput="updateCount()" placeholder="寫最有趣或最難忘的地方。例如：我和爸爸一起堆沙堡，媽媽幫我們拍照。"></textarea>
+    </div>
+
+    <div class="paragraph-box">
+      <div class="section-title">第 4 段：結尾感想</div>
+      <textarea id="p4" oninput="updateCount()" placeholder="寫你的心情和感想。例如：雖然我有一點累，但是心裡很快樂。"></textarea>
+    </div>
+
+    <div class="toolbar">
+      <button onclick="combineEssay()">產生完整作文</button>
+      <button class="secondary" onclick="copyEssay()">複製作文</button>
+      <button class="warn" onclick="clearEssay()">清除內容</button>
+    </div>
+    <div id="countBox" class="count-box">目前字數：約 0 字</div>
+  </section>
+
+  <section class="card">
+    <h2>六、我的完整作文</h2>
+    <div id="essayOutput" class="sample">寫完後，按「產生完整作文」，內容會出現在這裡。</div>
+  </section>
+
+  <section class="card">
+    <h2>七、範例作文</h2>
+    <div class="sample">
+      <strong>題目：一天的快樂旅遊</strong><br><br>
+      今天早上，天氣很好，太陽公公露出笑臉。我和爸爸、媽媽一起去海邊玩，我的心情非常開心。<br><br>
+      到了海邊，我看到藍藍的大海和白白的浪花。海風吹在臉上，涼涼的，好舒服。我脫下鞋子，踩在沙灘上，沙子軟軟的，像棉花一樣。<br><br>
+      中午，我們在附近的小店吃午餐。我吃了熱熱的麵和甜甜的冰淇淋。下午，我們又沿著海邊散步，還看到海鷗在天空飛來飛去，好像在跟我們打招呼。<br><br>
+      傍晚，我們準備回家。雖然我有一點累，但是心裡很快樂。今天的旅遊讓我留下美好的回憶，我希望下次還可以再和家人一起出去玩。
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  三年級作文練習 APP｜四段式作文法｜適合手機與平板使用
+</footer>
+
+<script>
+  const topics = [
+    "一天的快樂旅遊",
+    "我的爸爸",
+    "我的媽媽",
+    "我的好朋友",
+    "我最喜歡的老師",
+    "我的學校",
+    "我最喜歡的動物",
+    "我最喜歡的玩具",
+    "我最喜歡的食物",
+    "快樂的星期天",
+    "難忘的一件事",
+    "我學會的一件事",
+    "幫忙做家事",
+    "一次生病的經驗",
+    "下雨天",
+    "我的生日",
+    "運動會",
+    "園遊會",
+    "我最喜歡的季節",
+    "我最喜歡的一本書",
+    "我長大以後想做什麼",
+    "一次特別的校外教學",
+    "和家人一起吃飯",
+    "我最喜歡的地方",
+    "放學後的一件事",
+    "第一次搭火車",
+    "第一次煮東西",
+    "我最感謝的人",
+    "如果我有一雙翅膀",
+    "如果我是一隻小鳥",
+    "我家的寵物",
+    "一次幫助別人的經驗",
+    "我最勇敢的一次",
+    "春天來了",
+    "夏天的回憶",
+    "秋天的景色",
+    "冬天的早晨",
+    "熱鬧的市場",
+    "快樂的公園",
+    "我的房間",
+    "我最喜歡的運動",
+    "我和家人的一天",
+    "一次校外教學",
+    "我最喜歡的節日",
+    "我心中的英雄"
+  ];
+
+  let currentTopic = "";
+
+  function randomTopic() {
+    const randomIndex = Math.floor(Math.random() * topics.length);
+    currentTopic = topics[randomIndex];
+    document.getElementById("topicBox").innerText = currentTopic;
+    document.getElementById("topicHint").style.display = "none";
+  }
+
+  function showHintsForTopic() {
+    if (!currentTopic) {
+      randomTopic();
+    }
+
+    const hint = `
+      <strong>題目：${currentTopic}</strong><br><br>
+      <strong>第 1 段：</strong>先寫什麼時間、在哪裡、和誰一起、心情如何。<br>
+      <strong>第 2 段：</strong>寫事情一開始發生了什麼，你看到什麼、聽到什麼。<br>
+      <strong>第 3 段：</strong>寫最有趣、最特別、最難忘的一件事。<br>
+      <strong>第 4 段：</strong>寫你的感想，例如開心、感謝、學到什麼，或希望下次再做什麼。
+    `;
+
+    const box = document.getElementById("topicHint");
+    box.innerHTML = hint;
+    box.style.display = "block";
+  }
+
+  function getParagraphs() {
+    return [
+      document.getElementById("p1").value.trim(),
+      document.getElementById("p2").value.trim(),
+      document.getElementById("p3").value.trim(),
+      document.getElementById("p4").value.trim()
+    ];
+  }
+
+  function combineEssay() {
+    const paragraphs = getParagraphs();
+    const hasContent = paragraphs.some(p => p.length > 0);
+
+    if (!hasContent) {
+      document.getElementById("essayOutput").innerHTML = "請先在上面的四個段落寫作文喔！";
+      return;
+    }
+
+    const title = currentTopic ? `<strong>題目：${currentTopic}</strong><br><br>` : "";
+    const body = paragraphs.filter(p => p.length > 0).map(p => escapeHtml(p)).join("<br><br>");
+    document.getElementById("essayOutput").innerHTML = title + body;
+  }
+
+  function copyEssay() {
+    const paragraphs = getParagraphs();
+    const title = currentTopic ? `題目：${currentTopic}\n\n` : "";
+    const text = title + paragraphs.filter(p => p.length > 0).join("\n\n");
+
+    if (!text.trim()) {
+      alert("請先寫作文，再複製喔！");
+      return;
+    }
+
+    navigator.clipboard.writeText(text).then(() => {
+      alert("作文已經複製好了！");
+    }).catch(() => {
+      alert("複製失敗，可以手動選取下方完整作文。");
+    });
+  }
+
+  function clearEssay() {
+    document.getElementById("p1").value = "";
+    document.getElementById("p2").value = "";
+    document.getElementById("p3").value = "";
+    document.getElementById("p4").value = "";
+    document.getElementById("essayOutput").innerHTML = "寫完後，按「產生完整作文」，內容會出現在這裡。";
+    updateCount();
+  }
+
+  function updateCount() {
+    const total = getParagraphs().join("").replace(/\s/g, "").length;
+    document.getElementById("countBox").innerText = `目前字數：約 ${total} 字`;
+  }
+
+  function escapeHtml(text) {
+    return text
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/\n/g, "<br>");
+  }
+</script>
+
+</body>
+</html>
